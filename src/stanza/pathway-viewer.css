@@ -1,0 +1,12 @@
+:host {
+  position: relative;
+  display: block;
+  font-family: Roboto, sans-serif;
+  min-height: 300px;
+}
+:host > div {
+  display: contents;
+}
+:host > div > main {
+  display: contents;
+}

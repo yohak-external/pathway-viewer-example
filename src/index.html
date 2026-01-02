@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pathway viewer example</title>
+</head>
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body{
+    padding:16px;
+    background-color: #999;
+  }
+
+  togostanza-pathway-viewer{
+    height: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+</style>
+<body>
+<script type="module" src="/stanza/pathway-viewer.js" async></script>
+<main>
+<togostanza-pathway-viewer
+  data-url="/data/pathway-test.json"
+></togostanza-pathway-viewer>
+</main>
+</body>
+</html>
