@@ -55559,12 +55559,8 @@ const useHandleSvgSize = () => {
         if (!svgRef.current?.parentNode)
             return;
         const parent = svgRef.current.parentNode;
-        setWrapperHeight(0);
-        setWrapperWidth(0);
-        setTimeout(() => {
-            setWrapperHeight(parent.clientHeight);
-            setWrapperWidth(parent.clientWidth);
-        }, 16);
+        setWrapperHeight(parent.clientHeight);
+        setWrapperWidth(parent.clientWidth);
     };
     reactExports.useLayoutEffect(() => {
         if (!svgRef.current?.parentNode)
@@ -55572,19 +55568,12 @@ const useHandleSvgSize = () => {
         const parent = svgRef.current.parentNode;
         setWrapperHeight(parent.clientHeight);
         setWrapperWidth(parent.clientWidth);
-        let resizeDebounce = 0;
-        const handleResize = () => {
-            window.clearTimeout(resizeDebounce);
-            resizeDebounce = window.setTimeout(() => {
-                update();
-            }, 32);
-        };
-        window.setTimeout(() => {
+        const ro = new ResizeObserver(() => {
             update();
-        }, 100);
-        window.addEventListener("resize", handleResize);
+        });
+        ro.observe(parent);
         return () => {
-            window.removeEventListener("resize", handleResize);
+            ro.disconnect();
         };
     }, [svgRef]);
     return { svgRef, wrapperHeight, wrapperWidth };
