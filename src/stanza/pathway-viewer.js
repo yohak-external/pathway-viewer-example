@@ -66784,10 +66784,10 @@ const useModal = () => {
 
 const clearData = () => {
     store.dispatch(DocumentsActions.removeAllDocuments());
-    store.dispatch(LayoutsActions.removeAllLayouts());
+    store.dispatch(LayoutTagRelationsActions.removeAllLayoutTagRelations());
     store.dispatch(LayoutTagActions.removeAllLayoutTags());
     store.dispatch(LayoutTagValueActions.removeAllLayoutTagValues());
-    store.dispatch(LayoutTagRelationsActions.removeAllLayoutTagRelations());
+    store.dispatch(LayoutsActions.removeAllLayouts());
     store.dispatch(NodesActions.removeAllNodes());
     store.dispatch(ConnectionsActions.removeAllConnections());
     store.dispatch(ReferencesActions.removeAllReferences());
@@ -78568,16 +78568,32 @@ const usePathwayQueries = () => {
             queryKey: [url],
             queryFn: async () => {
                 const res = await fetch(url);
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    // window.alert("Loading error: Expected JSON but received non-JSON response");
+                    const text = await res.text();
+                    console.error("Non-JSON response:", res);
+                    console.error(text);
+                    throw new Error("Expected JSON but received non-JSON response");
+                }
                 const data = await res.json();
-                return data;
+                return { data, res };
             },
             staleTime: Infinity,
         })),
         combine: (results) => {
+            const data = results.map((result) => result?.data?.data || null).filter(Boolean);
+            const isPending = results.some((result) => result.isPending);
+            const isSuccess = results.every((result) => result.isSuccess);
+            const isError = results.some((result) => result.isError);
+            if (isError) {
+                // window.alert("something went wrong with loading process, please check");
+                console.error(results);
+            }
             return {
-                data: results.map((result) => result.data),
-                isPending: results.some((result) => result.isPending),
-                isSuccess: results.every((result) => result.isSuccess),
+                data,
+                isPending,
+                isSuccess,
             };
         },
     });

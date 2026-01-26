@@ -15,18 +15,46 @@
     background-color: #999;
   }
 
+  main{
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+  }
+
   togostanza-pathway-viewer{
     height: 600px;
     border-radius: 12px;
     overflow: hidden;
   }
+
+  select{
+    align-self: flex-end;
+  }
 </style>
 <body>
 <script type="module" src="/stanza/pathway-viewer.js" async></script>
 <main>
+<select name="dataSelect">
+  <option value="1">Data1</option>
+  <option value="2">Data2</option>
+  <option value="99">Undefined Data</option>
+</select>
+
 <togostanza-pathway-viewer
-  data-url="/data/pathway-test.json"
+  data-url="/data/pathway-test1.json"
 ></togostanza-pathway-viewer>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const select = document.querySelector('select');
+    const viewer = document.querySelector('togostanza-pathway-viewer');
+    select.addEventListener("change", () => {
+      const newUrl = `/data/pathway-test${select.value}.json`;
+      viewer.setAttribute('data-url', newUrl);
+    });
+  });
+</script>
+
 </body>
 </html>
