@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "file:///Volumes/DATA/repositories/pathway-playground/apps/stanza/stanzas/pathway-viewer/style.scss"
+  ],
+  "names": [],
+  "mappings": "AAAA;EACE;EACA;EACA;EACA;;AAEA;EACE;;AACA;EACE",
+  "sourcesContent": [
+    ":host {\n  position: relative;\n  display: block;\n  font-family: Roboto, sans-serif;\n  min-height: 300px;\n\n  & > div {\n    display: contents;\n    & > main {\n      display: contents;\n    }\n  }\n}\n"
+  ]
+}

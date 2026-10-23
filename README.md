@@ -24,3 +24,12 @@
 
 - `togostanza-pathway-viewer` タグに対して直接参照して指定できる
     - もちろん、class や id を用いることも可能
+
+## Bundled version
+
+- Viewer version: `20261022`
+- API schema version: `20251003`
+- Source: [v20261022](https://github.com/dbcls/pathway_viewer/tree/v20261022)
+- Source commit: `e82141955b1bbd2f3533272e298c8264aaf3ac0b`
+
+`src/stanza/` の JS/CSS とソースマップは、上記タグの `pathway-playground` で `mise exec -- pnpm stanza:build` を実行し、`apps/stanza/dist/` からコピーしたもの。Viewer 内の Info タブでもバージョンを確認できる。
